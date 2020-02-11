@@ -11,15 +11,18 @@ let snakePos = [
     {x: 30, y: 250},
     {x: 20, y: 250},
 ];
-let width, height, foodPos, pause, direction, appendSnake, isGameOver, score;
+let width, height, foodPos, pause, direction, appendSnake, isGameOver, score, lastScore;
 
 function setup() {
     width = windowWidth/2;
     height = windowHeight/2;
     foodPos = {x: width/2, y: height/2};
-    pause, isGameOver, appendSnake = false;
+    pause = false;
+    isGameOver = false;
+    appendSnake = false;
     direction = RIGHT;
     score = 0;
+    lastScore = 0;
     createCanvas(width, height-1);
     frameRate(25);
 }
@@ -46,7 +49,6 @@ function draw() {
     line(width, height, 0, height);
     line(0, height, 0, 0);
     strokeWeight(1);
-
     if(!pause && !isGameOver) {
         moveSnake();
         eat();
@@ -70,8 +72,8 @@ function checkCollision() {
 
 function eat(){
     if(foodPos.x > snakePos[0].x-10 && foodPos.x < snakePos[0].x+10 && foodPos.y > snakePos[0].y-10 && foodPos.y < snakePos[0].y+10){
-        foodPos.x = Math.floor(Math.random() * width - 20);
-        foodPos.y = Math.floor(Math.random() * height - 20);
+        foodPos.x = Math.floor(Math.random() * (width - 50));
+        foodPos.y = Math.floor(Math.random() * (height - 50));
         score++;
         document.getElementById("highScore").innerHTML = "Score: " + score;
         appendSnake = true;
